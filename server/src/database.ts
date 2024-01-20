@@ -1,5 +1,5 @@
-import mysql from 'mysql2';
-import dotenv from 'dotenv';
+import mysql from "mysql2";
+import dotenv from "dotenv";
 dotenv.config();
 
 const pool = mysql
@@ -11,10 +11,10 @@ const pool = mysql
   })
   .promise();
 
-export async function getNotes() {
+export async function getFullConversation() {
   const QUERY_getAllNotes = `
   SELECT *
-  FROM notes;`;
+  FROM public_conversation;`;
 
   const result = await pool.query(QUERY_getAllNotes);
   return result[0];

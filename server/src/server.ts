@@ -1,27 +1,29 @@
-import express from 'express';
-import { getNote, getNotes, createNote } from './database.js';
-import cors from 'cors';
+import express from "express";
+import { getNote, createNote, getFullConversation } from "./database.js";
+import cors from "cors";
+
+console.log("2.1 start server");
 
 const app = express();
 
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: "http://localhost:5173",
   })
 );
 
 app.use(express.json());
 
-app.get('/notes', async (req, res) => {
-  const notes = await getNotes();
-  console.log('Sending notes!');
-  res.send(notes);
+app.get("/conversation", async (req, res) => {
+  const conversation = await getFullConversation();
+  console.log("Sending conversation!");
+  res.send(conversation);
 });
 
-app.get('/notes/:id', async (req, res) => {
+app.get("/notes/:id", async (req, res) => {
   const id = Number(req.params.id);
   if (isNaN(id)) {
-    res.send('Invalid id.  Please provide a number.');
+    res.send("Invalid id.  Please provide a number.");
   } else {
     const note = await getNote(id);
     console.log(`Sending note for id: ${id}`);
@@ -29,7 +31,7 @@ app.get('/notes/:id', async (req, res) => {
   }
 });
 
-app.post('/notes', async (req, res) => {
+app.post("/notes", async (req, res) => {
   const { title, contents } = req.body;
   const note = await createNote(title, contents);
   console.log(`Creating new note: ${title}`);
@@ -37,5 +39,5 @@ app.post('/notes', async (req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log('Server is running on port 8080');
+  console.log("Server is listening on port 8080");
 });

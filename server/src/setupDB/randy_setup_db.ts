@@ -1,6 +1,7 @@
-import mysql from 'mysql2';
-import dotenv from 'dotenv';
+import mysql from "mysql2";
+import dotenv from "dotenv";
 dotenv.config();
+console.log("1.1 start setup db");
 
 const pool = mysql
   .createPool({
@@ -17,12 +18,14 @@ try {
 } catch (error) {
   // Extra gymnastics because TS doesn't like unknown errors
   if (
-    typeof error === 'object' &&
+    typeof error === "object" &&
     error !== null &&
-    'errno' in error &&
+    "errno" in error &&
     error?.errno === 1008
   ) {
-    console.log(`No previous instance of ${process.env.MYSQL_DATABASE}`);
+    console.log(
+      `No previous instance of ${process.env.MYSQL_DATABASE} \n Creating new instance of ${process.env.MYSQL_DATABASE}`
+    );
   } else {
     console.error(error);
   }
@@ -45,3 +48,4 @@ await pool.query(`INSERT INTO public_conversation (user, message_text)
 await pool.query(`SELECT * FROM public_conversation;`);
 
 pool.end();
+console.log("1.2 end setup db");
