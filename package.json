@@ -1,0 +1,21 @@
+{
+  "name": "karpc-alpha",
+  "version": "1.0.0",
+  "description": "Twitter clone and then some by Khlail and Randy",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev/cleanDBServer": "cd server && npm run build && node dist/setupDB/setup_db.js && node ./dist/server.js",
+    "dev/client-app": "cd client/karpc-alpha-client-app && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RandonSRProctor/KARPC_alpha.git"
+  },
+  "author": "RandonSRProctor crenshkr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RandonSRProctor/KARPC_alpha/issues"
+  },
+  "homepage": "https://github.com/RandonSRProctor/KARPC_alpha#readme"
+}
