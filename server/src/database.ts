@@ -10,7 +10,7 @@ const pool = mysql
     database: process.env.MYSQL_DATABASE,
   })
   .promise();
-
+// get the full conversation
 export async function getFullConversation() {
   const QUERY_getAllNotes = `
   SELECT *
@@ -19,22 +19,33 @@ export async function getFullConversation() {
   const result = await pool.query(QUERY_getAllNotes);
   return result[0];
 }
-
-export async function getNote(id: number) {
-  const QUERY_getNote = `
+// get the last ten messages
+export async function getLastTenMessages() {
+  const QUERY_getLastTenNotes = `
   SELECT *
-  FROM notes
-  WHERE id = ?;`;
+  FROM public_conversation
+  ORDER BY id DESC
+  LIMIT 10;`;
 
-  const result = await pool.query(QUERY_getNote, [id]);
+  const result = await pool.query(QUERY_getLastTenNotes);
   return result[0];
 }
+// get a specific message by id
+export async function getMessage(id: number) {
+  const QUERY_getMessage = `
+  SELECT *
+  FROM public_conversation
+  WHERE id = ?;`;
 
-export async function createNote(title: string, contents: string) {
-  const QUERY_createNote = `
-  INSERT INTO notes (title, contents)
+  const result = await pool.query(QUERY_getMessage, [id]);
+  return result[0];
+}
+// create a new message
+export async function createMessage(user: string, message_text: string) {
+  const QUERY_createMessage = `
+  INSERT INTO public_conversation (user, message_text)
   VALUES (?, ?);`;
 
-  const result = await pool.query(QUERY_createNote, [title, contents]);
+  const result = await pool.query(QUERY_createMessage, [user, message_text]);
   return result;
 }
