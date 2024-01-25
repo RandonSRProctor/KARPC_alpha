@@ -1,6 +1,6 @@
 import HamburgerIcon from "./assets/hamburger-svgrepo-com.svg";
 import UserIcon from "./assets/user-profile-svgrepo-com.svg";
-
+import { useState } from "react";
 const mockConversationData = [
   {
     id: 1,
@@ -31,6 +31,63 @@ const mockConversationData = [
 window.document.body.classList.add("bg-sky-500");
 
 function App() {
+  // State to manage input values
+  const [userInput, setUserInput] = useState("");
+  const [messageInput, setMessageInput] = useState("");
+  const [messageId, setMessageid] = useState("");
+
+  // send message to server
+  const handleSendMessage = async () => {
+    try {
+      // make a POST request server endpoint
+      const response = await fetch(
+        "http://localhost:8080/karpc_alpha/createMessage",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: userInput,
+            messageText: messageInput,
+          }),
+        },
+      );
+
+      if (response.ok) {
+        console.log("Message sent successfully");
+      } else {
+        console.error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  // get message by id from server
+  const handleFindMessageById = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8080/karpc_alpha/${messageId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Message retrieved successfully:", data);
+      } else {
+        console.error("Failed to retrieve message");
+      }
+    } catch (error) {
+      console.error("Error retrieving message:", error);
+    }
+  };
+
   return (
     <>
       <div className="sticky top-0 flex justify-between border-b border-indigo-900 bg-indigo-800 py-1 shadow">
@@ -52,16 +109,57 @@ function App() {
       <div className="APP_CONTENT flex justify-center p-2">
         <div className="CONVERSATION_CONTAINER w-1/2 rounded border border-sky-500 bg-sky-300 p-2 shadow">
           {mockConversationData &&
-            mockConversationData.map((message) => {
-              return (
+            mockConversationData.map((message) => (
+              <div
+                key={message.id}
+                className={`${
+                  message.user === "randy" ? "text-left" : "text-right"
+                } mb-2`}
+              >
                 <p className="text-base">
-                  <span>{`${message.user}: `}</span>
+                  <span className="font-bold">{`${message.user}: `}</span>
                   <span>{message.message_text}</span>
                 </p>
-              );
-            })}
+              </div>
+            ))}
         </div>
       </div>
+      <div className="CONVERSATION_INPUT">
+        {/* create and message input test */}
+        <h2 className="text-center text-xl">Send message test</h2>
+        <input
+          className="user"
+          placeholder="Type user here..."
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+        />
+        <input
+          className="w-full rounded border border-gray-400 p-1"
+          placeholder="Type your message here..."
+          value={messageInput}
+          onChange={(e) => setMessageInput(e.target.value)}
+        />
+        <button
+          className="ml-1 rounded bg-indigo-800 p-1 text-white"
+          onClick={handleSendMessage}
+        >
+          Send
+        </button>
+      </div>
+      {/* get message by id input test */}
+      <h2 className="text-center text-xl">Get message by id test</h2>
+      <input
+        className="messageFinder"
+        placeholder="Type id here..."
+        value={messageId}
+        onChange={(e) => setMessageid(e.target.value)}
+      />
+      <button
+        className="ml-1 rounded bg-indigo-800 p-1 text-white"
+        onClick={handleFindMessageById}
+      >
+        Send
+      </button>
     </>
   );
 }
