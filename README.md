@@ -9,7 +9,7 @@ _Created by Khalil & Randy, as a way to test modern JS/TS's full-stack modules_
 This step will sequentially run all steps in the `Incremental Start` section. It is advised that you read through the `Incremental Start` section to understand what will happen; consider manually running all of the steps first, and then using this script for future uses.
 
 ```shell
-npm run tbd-script
+## Does not exist yet
 ```
 
 ## ⚙️ Incremental Start
