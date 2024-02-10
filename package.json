@@ -5,8 +5,8 @@
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev/cleanDBServer": "cd packages/backend/server && yarn build && node dist/setupDB/setup_db.js && node ./dist/server.js",
-    "dev/client-app": "cd packages/frontend/karpc-alpha-client-app && yarn run dev"
+    "server": "cd packages/backend/server && yarn build && node dist/setupDB/setup_db.js && node ./dist/server.js",
+    "client": "cd packages/frontend/karpc-alpha-client-app && yarn run dev"
   },
   "repository": {
     "type": "git",
