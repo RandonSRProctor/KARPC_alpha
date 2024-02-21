@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "cd packages/backend/server && yarn build && node dist/setupDB/setup_db.js && node ./dist/server.js",
+    "server": "cd packages/backend/server && yarn build && node distro/setupDB/setup_db.js && node ./distro/server.js",
     "client": "cd packages/frontend/karpc-alpha-client-app && yarn run dev"
   },
   "repository": {
