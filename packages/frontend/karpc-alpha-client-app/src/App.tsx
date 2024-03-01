@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import HamburgerIcon from "./assets/hamburger-svgrepo-com.svg";
 import UserIcon from "./assets/user-profile-svgrepo-com.svg";
 
@@ -31,6 +32,11 @@ const mockConversationData = [
 window.document.body.classList.add("bg-sky-500");
 
 function App() {
+  useEffect(() => {
+    fetch("http://localhost:8080/conversation")
+      .then((response) => response.json())
+      .then(console.log);
+  }, []);
   return (
     <>
       <div className="sticky top-0 flex justify-between border-b border-indigo-900 bg-indigo-800 py-1 shadow">
@@ -52,9 +58,9 @@ function App() {
       <div className="APP_CONTENT flex justify-center p-2">
         <div className="CONVERSATION_CONTAINER w-1/2 rounded border border-sky-500 bg-sky-300 p-2 shadow">
           {mockConversationData &&
-            mockConversationData.map((message) => {
+            mockConversationData.map((message, i) => {
               return (
-                <p className="text-base">
+                <p key={i} className="text-base">
                   <span>{`${message.user}: `}</span>
                   <span>{message.message_text}</span>
                 </p>
