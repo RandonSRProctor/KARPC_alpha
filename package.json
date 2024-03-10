@@ -1,12 +1,12 @@
 {
-  "name": "karpc-alpha",
+  "name": "karpc-monorepo",
   "version": "1.0.0",
   "description": "Twitter clone and then some by Khlail and Randy",
   "main": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "cd packages/backend/server && yarn build && node distro/setupDB/setup_db.js && node ./distro/server.js",
-    "client": "cd packages/frontend/karpc-alpha-client-app && yarn run dev"
+    "server": "cd packages/backend/karpc-server && yarn build && node distro/setupDB/setup_db.js && node ./distro/server.js",
+    "client": "cd packages/frontend/karpc-client && yarn run dev"
   },
   "repository": {
     "type": "git",

@@ -1,41 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import HamburgerIcon from "./assets/hamburger-svgrepo-com.svg";
 import UserIcon from "./assets/user-profile-svgrepo-com.svg";
-
-const mockConversationData = [
-  {
-    id: 1,
-    created: "2024-01-21T21:09:32.000Z",
-    user: "randy",
-    message_text: "Hey Khalil!",
-  },
-  {
-    id: 2,
-    created: "2024-01-21T21:09:32.000Z",
-    user: "khalil",
-    message_text: "Hey Khalil!",
-  },
-  {
-    id: 3,
-    created: "2024-01-21T21:09:32.000Z",
-    user: "randy",
-    message_text: "What are you up to?",
-  },
-  {
-    id: 4,
-    created: "2024-01-21T21:09:32.000Z",
-    user: "khalil",
-    message_text: "Some pair programming!",
-  },
-];
+import { MessageFeed } from "./components/MessageFeed/MessageFeed";
+import { fetchAllMessages } from "karpc-api";
 
 window.document.body.classList.add("bg-sky-500");
 
 function App() {
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8080/conversation")
+    fetchAllMessages()
       .then((response) => response.json())
-      .then(console.log);
+      .then((messages) => setMessages(messages));
   }, []);
   return (
     <>
@@ -57,15 +33,7 @@ function App() {
       </div>
       <div className="APP_CONTENT flex justify-center p-2">
         <div className="CONVERSATION_CONTAINER w-1/2 rounded border border-sky-500 bg-sky-300 p-2 shadow">
-          {mockConversationData &&
-            mockConversationData.map((message, i) => {
-              return (
-                <p key={i} className="text-base">
-                  <span>{`${message.user}: `}</span>
-                  <span>{message.message_text}</span>
-                </p>
-              );
-            })}
+          <MessageFeed messages={messages} />
         </div>
       </div>
     </>
