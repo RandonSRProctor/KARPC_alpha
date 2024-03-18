@@ -23,18 +23,32 @@ export async function getFullConversation() {
 export async function getNote(id: number) {
   const QUERY_getNote = `
   SELECT *
-  FROM notes
+  FROM public_conversation
   WHERE id = ?;`;
 
   const result = await pool.query(QUERY_getNote, [id]);
   return result[0];
 }
 
-export async function createNote(title: string, contents: string) {
+export async function createMessage(user: string, message_text: string) {
   const QUERY_createNote = `
-  INSERT INTO notes (title, contents)
+  INSERT INTO public_conversation (user, message_text)
   VALUES (?, ?);`;
 
-  const result = await pool.query(QUERY_createNote, [title, contents]);
-  return result;
+  const resultOfPost = await pool.query(QUERY_createNote, [user, message_text]);
+
+  if (
+    "insertId" in resultOfPost[0] === false ||
+    typeof resultOfPost[0].insertId !== "number"
+  ) {
+    console.log(
+      "Unable to retrieve id for new entry.  Something may have gone wrong",
+    );
+    return resultOfPost;
+  }
+
+  const resultOfGet = await getNote(resultOfPost[0].insertId);
+  console.log(resultOfGet);
+
+  return resultOfGet;
 }
