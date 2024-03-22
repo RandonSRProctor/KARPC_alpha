@@ -1,34 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { fetchAllMessages, postNewMessage } from "karpc-api";
+import { MessagePost } from "karpc-types";
+
 import HamburgerIcon from "./assets/hamburger-svgrepo-com.svg";
 import UserIcon from "./assets/user-profile-svgrepo-com.svg";
 import { MessageFeed } from "./components/MessageFeed/MessageFeed";
-import { fetchAllMessages, postNewMessage } from "karpc-api";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
+import { FormPostMessage } from "./components/FormPostMessage/FormPostMessage";
 import {
   selectConversation,
   replaceConversation,
   updateConversation,
 } from "./redux/slices/conversationSlice";
 
+export const buildPostMessageThunk =
+  (dispatch: any) => async (messagePost: MessagePost) => {
+    const response = await postNewMessage(messagePost);
+    const message = await response.json();
+    dispatch(updateConversation(message[0]));
+  };
 window.document.body.classList.add("bg-sky-500");
-
-// TODO: Make Types package
-export type Message = {
-  id: number;
-  created: string;
-  user: "randy" | "khalil";
-  message_text: string;
-};
-
-type MessagePost = {
-  user: "randy" | "khalil";
-  message_text: string;
-};
 
 function App() {
   const dispatch = useAppDispatch();
   const messages = useAppSelector(selectConversation);
-  const [newMessageInput, setNewMessageInput] = useState("");
 
   useEffect(() => {
     fetchAllMessages()
@@ -36,12 +32,6 @@ function App() {
       .then((messages) => dispatch(replaceConversation(messages)));
   }, [dispatch]);
 
-  async function dispatchAfterPostMessages(messagePost: MessagePost) {
-    const response = await postNewMessage(messagePost);
-    const message = await response.json();
-    console.log(message[0]);
-    dispatch(updateConversation(message[0]));
-  }
   return (
     <>
       <div className="sticky top-0 flex justify-between border-b border-indigo-900 bg-indigo-800 py-1 shadow">
@@ -64,24 +54,7 @@ function App() {
         <div className="CONVERSATION_CONTAINER w-1/2 rounded border border-sky-500 bg-sky-300 p-2 shadow">
           <MessageFeed messages={messages} />
         </div>
-        <div>
-          <input
-            value={newMessageInput}
-            onChange={(event) => setNewMessageInput(event.target.value)}
-          ></input>
-
-          <button
-            className="rounded border border-black bg-green-500 p-2"
-            onClick={() =>
-              dispatchAfterPostMessages({
-                user: "randy",
-                message_text: `${newMessageInput}`,
-              })
-            }
-          >
-            Post
-          </button>
-        </div>
+        <FormPostMessage />
       </div>
     </>
   );

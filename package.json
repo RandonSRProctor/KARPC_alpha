@@ -21,6 +21,7 @@
   "packageManager": "yarn@4.1.0",
   "workspaces": [
     "packages/backend/*",
-    "packages/frontend/*"
+    "packages/frontend/*",
+    "packages/shared/*"
   ]
 }

@@ -2672,6 +2672,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"karpc-types@workspace:packages/shared/karpc-types":
+  version: 0.0.0-use.local
+  resolution: "karpc-types@workspace:packages/shared/karpc-types"
+  languageName: unknown
+  linkType: soft
+
 "keyv@npm:^4.5.3":
   version: 4.5.4
   resolution: "keyv@npm:4.5.4"
