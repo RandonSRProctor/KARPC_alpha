@@ -54,7 +54,9 @@ function App() {
         <div className="CONVERSATION_CONTAINER w-1/2 rounded border border-sky-500 bg-sky-300 p-2 shadow">
           <MessageFeed messages={messages} />
         </div>
-        <FormPostMessage />
+        <div>
+          <FormPostMessage />
+        </div>
       </div>
     </>
   );
