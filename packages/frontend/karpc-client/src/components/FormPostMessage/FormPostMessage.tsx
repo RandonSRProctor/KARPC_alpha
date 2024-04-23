@@ -6,15 +6,10 @@ export const FormPostMessage = () => {
   const dispatch = useAppDispatch();
   const postMessageThunk = buildPostMessageThunk(dispatch);
   const [newMessageInput, setNewMessageInput] = useState("");
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      handleSubmit();
-    }
-  };
-  const handleSubmit = () => {
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     if (newMessageInput.trim() === "") {
-      console.log("newMessageInput is empty");
       return;
     }
 
@@ -22,23 +17,22 @@ export const FormPostMessage = () => {
       user: "randy",
       message_text: `${newMessageInput}`,
     });
-    setNewMessageInput("");
+
+    setNewMessageInput(""); // What if message fails?
   };
   return (
-    <div className=" flex flex-row gap-1">
+    <form className="flex flex-row gap-1 pt-2" onSubmit={handleSubmit}>
       <input
         className="rounded"
         value={newMessageInput}
         onChange={(event) => setNewMessageInput(event.target.value)}
-        onKeyDown={handleKeyDown}
       ></input>
-
       <button
+        type="submit"
         className="rounded border border-black bg-green-500 p-2"
-        onClick={handleSubmit}
       >
         Post
       </button>
-    </div>
+    </form>
   );
 };
