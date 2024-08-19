@@ -17,7 +17,7 @@ const KhalilMessage = ({ message }: RandyMessageProps) => {
   return (
     <p className={`flex -translate-x-11 transform justify-start p-1 text-base`}>
       <span className=" py-1 pr-3">
-        <span className="rounded bg-purple-800 bg-white p-1 px-2 text-white shadow">
+        <span className="rounded bg-purple-800 p-1 px-2 text-white shadow">
           K
         </span>
       </span>
