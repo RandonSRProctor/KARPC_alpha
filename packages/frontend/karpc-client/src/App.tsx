@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
-import { fetchAllMessages, postNewMessage } from "karpc-api";
-import { MessagePost } from "karpc-types";
+import { fetchAllMessages } from "karpc-api";
 
 import HamburgerIcon from "./assets/hamburger-svgrepo-com.svg";
 import UserIcon from "./assets/user-profile-svgrepo-com.svg";
@@ -11,15 +10,8 @@ import { FormPostMessage } from "./components/FormPostMessage/FormPostMessage";
 import {
   selectConversation,
   replaceConversation,
-  updateConversation,
 } from "./redux/slices/conversationSlice";
 
-export const buildPostMessageThunk =
-  (dispatch: any) => async (messagePost: MessagePost) => {
-    const response = await postNewMessage(messagePost);
-    const message = await response.json();
-    dispatch(updateConversation(message[0]));
-  };
 window.document.body.classList.add("bg-sky-500");
 
 function App() {

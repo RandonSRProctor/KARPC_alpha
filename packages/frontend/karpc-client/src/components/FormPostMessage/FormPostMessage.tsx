@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { buildPostMessageThunk } from "../../App";
 import { useAppDispatch } from "../../redux/hooks/hooks";
+import { buildPostMessageThunk } from "../../redux/thunks/postMessageThunk";
 
 export const FormPostMessage = () => {
   const dispatch = useAppDispatch();

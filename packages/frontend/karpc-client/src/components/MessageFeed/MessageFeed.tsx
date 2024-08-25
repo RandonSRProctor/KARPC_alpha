@@ -26,23 +26,34 @@ const KhalilMessage = ({ message }: RandyMessageProps) => {
   );
 };
 
+/***********************************************************************/
+
+type ForEachProps = {
+  iterable: Message[];
+  render: (element: Message, key: number) => JSX.Element;
+};
+
+const ForEach = ({ iterable, render }: ForEachProps) =>
+  iterable.map((element, i) => render(element, i));
+
+/***********************************************************************/
+
 type MessageFeedProps = {
   messages: Message[];
 };
 
-export const MessageFeed = ({ messages }: MessageFeedProps) => {
-  return (
-    <>
-      {messages.map((message, i) => {
-        return message.user === "randy" ? (
-          <RandyMessage key={i} message={message} />
-        ) : (
-          <KhalilMessage key={i} message={message} />
-        );
-      })}
-    </>
-  );
-};
+export const MessageFeed = ({ messages }: MessageFeedProps) => (
+  <ForEach
+    iterable={messages}
+    render={(message, key) =>
+      message.user === "randy" ? (
+        <RandyMessage message={message} key={key} />
+      ) : (
+        <KhalilMessage message={message} key={key} />
+      )
+    }
+  />
+);
 
 type RandyMessageProps = {
   message: Message;
