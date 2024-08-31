@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Message } from "../../App";
+import { Message } from "karpc-types";
 
 // This is an interface in the docs.  Curious if a type is okay.
 type ConversationState = {
