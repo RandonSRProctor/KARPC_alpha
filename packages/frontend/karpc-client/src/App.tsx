@@ -18,8 +18,8 @@ function App() {
   const messages = useAppSelector(selectConversation);
 
   useEffect(() => {
-    dispatch(fetchConversationtThunk);
-    dispatch(FETCH_CONVERSATION_REQUEST());
+    dispatch(fetchConversationtThunk); // async
+    dispatch(FETCH_CONVERSATION_REQUEST()); // syncronous
   }, [dispatch]);
 
   return (
