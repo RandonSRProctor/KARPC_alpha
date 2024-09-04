@@ -39,14 +39,6 @@ export const conversationSlice = createSlice({
   },
 });
 
-/**
- * Proposed event-driven async data fetching names:
- * FETCH_USER_REQUEST - for when you first send the api call
-FETCH_USER_SUCCESS - for when the api call is done and successfully returned data
-FETCH_USER_FAIL - for when the api call failed and responded with an error,
-FETCH_USER_COMPLETE - sometimes used at the end of the call regardless of status
- */
-
 export const {
   FETCH_CONVERSATION_SUCCESS,
   FETCH_CONVERSATION_REQUEST,
