@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 
-import { fetchAllMessages } from "karpc-api";
-
 import HamburgerIcon from "./assets/hamburger-svgrepo-com.svg";
 import UserIcon from "./assets/user-profile-svgrepo-com.svg";
 import { MessageFeed } from "./components/MessageFeed/MessageFeed";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
 import { FormPostMessage } from "./components/FormPostMessage/FormPostMessage";
 import {
+  FETCH_CONVERSATION_REQUEST,
   selectConversation,
-  FETCH_CONVERSATION_SUCCESS,
 } from "./redux/slices/conversationSlice";
+import { fetchConversationtThunk } from "./redux/thunks/buildFetchConversationRequestThunk";
 
 window.document.body.classList.add("bg-sky-500");
 
@@ -19,9 +18,8 @@ function App() {
   const messages = useAppSelector(selectConversation);
 
   useEffect(() => {
-    fetchAllMessages()
-      .then((response) => response.json())
-      .then((messages) => dispatch(FETCH_CONVERSATION_SUCCESS(messages)));
+    dispatch(fetchConversationtThunk);
+    dispatch(FETCH_CONVERSATION_REQUEST());
   }, [dispatch]);
 
   return (

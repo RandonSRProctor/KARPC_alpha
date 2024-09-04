@@ -1,4 +1,6 @@
 import { Message } from "karpc-types";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { selectConversationFetchStatus } from "../../redux/slices/conversationSlice";
 
 const RandyMessage = ({ message }: RandyMessageProps) => {
   return (
@@ -42,18 +44,32 @@ type MessageFeedProps = {
   messages: Message[];
 };
 
-export const MessageFeed = ({ messages }: MessageFeedProps) => (
-  <ForEach
-    iterable={messages}
-    render={(message, key) =>
-      message.user === "randy" ? (
-        <RandyMessage message={message} key={key} />
-      ) : (
-        <KhalilMessage message={message} key={key} />
-      )
-    }
-  />
-);
+export const MessageFeed = ({ messages }: MessageFeedProps) => {
+  const conversationFetchStatus = useAppSelector(selectConversationFetchStatus);
+
+  if (conversationFetchStatus === "Sent_Awaiting_Response") {
+    return <div>Loading...</div>;
+  }
+
+  if (conversationFetchStatus === "Error") {
+    return <div>Something went wrong! Try again?</div>;
+  }
+
+  if (conversationFetchStatus === "Success") {
+    return (
+      <ForEach
+        iterable={messages}
+        render={(message, key) =>
+          message.user === "randy" ? (
+            <RandyMessage message={message} key={key} />
+          ) : (
+            <KhalilMessage message={message} key={key} />
+          )
+        }
+      />
+    );
+  }
+};
 
 type RandyMessageProps = {
   message: Message;

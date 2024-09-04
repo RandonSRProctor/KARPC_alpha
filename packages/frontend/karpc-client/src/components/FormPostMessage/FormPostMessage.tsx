@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../redux/hooks/hooks";
-import { buildPostMessageThunk } from "../../redux/thunks/postMessageThunk";
+import { postMessageThunk } from "../../redux/thunks/postMessageThunk";
 
 export const FormPostMessage = () => {
   const dispatch = useAppDispatch();
-  const postMessageThunk = buildPostMessageThunk(dispatch);
   const [newMessageInput, setNewMessageInput] = useState("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -13,10 +12,12 @@ export const FormPostMessage = () => {
       return;
     }
 
-    postMessageThunk({
-      user: "randy",
-      message_text: `${newMessageInput}`,
-    });
+    dispatch(
+      postMessageThunk({
+        user: "randy",
+        message_text: `${newMessageInput}`,
+      }),
+    );
 
     setNewMessageInput(""); // What if message fails?
   };

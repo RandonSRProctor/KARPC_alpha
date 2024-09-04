@@ -5,11 +5,12 @@ import { Dispatch } from "@reduxjs/toolkit";
 
 // TODO: Next: switch over to createAsyncThunk
 
-export const buildPostMessageThunk =
-  (dispatch: Dispatch) => async (messagePost: MessagePost) => {
+export const postMessageThunk =
+  (messagePost: MessagePost) => async (dispatch: Dispatch) => {
     const response = await postNewMessage(messagePost);
     const message = await response.json();
     dispatch(updateConversation(message[0]));
+    // NOTE: This is not catching errors!
   };
 
 /**
