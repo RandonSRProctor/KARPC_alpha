@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
 import { FormPostMessage } from "./components/FormPostMessage/FormPostMessage";
 import {
   selectConversation,
-  replaceConversation,
+  FETCH_CONVERSATION_SUCCESS,
 } from "./redux/slices/conversationSlice";
 
 window.document.body.classList.add("bg-sky-500");
@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     fetchAllMessages()
       .then((response) => response.json())
-      .then((messages) => dispatch(replaceConversation(messages)));
+      .then((messages) => dispatch(FETCH_CONVERSATION_SUCCESS(messages)));
   }, [dispatch]);
 
   return (
