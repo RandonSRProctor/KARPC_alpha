@@ -9,7 +9,7 @@ import {
   FETCH_CONVERSATION_REQUEST,
   selectConversation,
 } from "./redux/slices/conversationSlice";
-import { fetchConversationtThunk } from "./redux/thunks/buildFetchConversationRequestThunk";
+import { fetchConversationtThunk } from "./redux/thunks/fetchConversationRequestThunk";
 
 window.document.body.classList.add("bg-sky-500");
 
