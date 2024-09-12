@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { postMessageThunk } from "../../redux/thunks/postMessageThunk";
+import { POST_MESSAGE_REQUEST } from "../../redux/slices/conversationSlice";
 
 export const FormPostMessage = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,13 @@ export const FormPostMessage = () => {
 
     dispatch(
       postMessageThunk({
+        user: "randy",
+        message_text: `${newMessageInput}`,
+      }),
+    );
+
+    dispatch(
+      POST_MESSAGE_REQUEST({
         user: "randy",
         message_text: `${newMessageInput}`,
       }),
