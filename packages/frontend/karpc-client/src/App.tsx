@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <div className="sticky top-0 flex justify-between border-b border-indigo-900 bg-indigo-800 py-1 shadow">
+      <div className="sticky top-0 z-10 flex justify-between border-b border-indigo-900 bg-indigo-800 py-1 shadow">
         <div className="pl-2 pt-1">
           <img className="h-11 w-11" src={HamburgerIcon} />
         </div>
