@@ -1,3 +1,12 @@
+/**
+ * This file is kept as a historical record from before the use
+ * of RTK's async thunk creators.
+ *
+ * We used to have to create our own boilerplate actions
+ * to represent the async lifecycle that RTK now creates
+ * automatically for us.
+ */
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { Message, MessagePost } from "karpc-types";

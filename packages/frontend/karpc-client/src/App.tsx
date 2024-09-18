@@ -6,7 +6,7 @@ import { MessageFeed } from "./components/MessageFeed/MessageFeed";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
 import { FormPostMessage } from "./components/FormPostMessage/FormPostMessage";
 import {
-  FETCH_CONVERSATION_REQUEST,
+  FETCH_CONVERSATION_REQUESTED,
   selectConversation,
 } from "./redux/slices/conversationSlice";
 import { fetchConversationtThunk } from "./redux/thunks/fetchConversationRequestThunk";
@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchConversationtThunk); // async
-    dispatch(FETCH_CONVERSATION_REQUEST()); // syncronous
+    dispatch(FETCH_CONVERSATION_REQUESTED()); // syncronous
   }, [dispatch]);
 
   return (
