@@ -1,7 +1,7 @@
 import { postNewMessage } from "karpc-api";
 import { MessagePost } from "karpc-types";
 import { POST_MESSAGE_SUCCEEDED } from "../slices/conversationSlice";
-import { createAsyncThunk, Dispatch } from "@reduxjs/toolkit";
+import { Dispatch } from "@reduxjs/toolkit";
 
 /**
  * @deprecated prefer postMessageAsyncThunk
