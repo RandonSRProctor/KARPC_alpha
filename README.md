@@ -37,4 +37,12 @@ In a terminal, navigate to the `server` directroy/package and run this command `
 
 ### 3. Start Server
 
+```sh
+yarn server
+```
+
 ### 4. Start Client
+
+```sh
+yarn client
+```
